@@ -1,0 +1,32 @@
+settings:
+  # How frequent do you want it to check for rank ups. In minutes.
+  frequency: 5
+  # Check on player login.
+  login: true
+  # Broadcast to all when a player ranks up?
+  broadcast: true
+  # You can color code these messages.
+  broadcastmessage: "&b{player}&a, just ranked up to &6{rank_to}"
+  # Whether or not to send a message to the player who ranks up.
+  player: true
+  # Message for the player who ranks up.
+  playermessage: "&aGood job!& b{player}&a, you just ranked up to &6{rank_to}"
+bungee:
+  # If you want to send the broadcast message to your bungee network.
+  broadcast: false
+ranks:
+  # The default rank of the server.
+  owner:
+    # The time in minutes to rank up.
+    time: 0d 3h 0m 0s
+    # The rank you want to put them in.
+    to: admin
+    # Command to send to the console on rank up.
+    command: "lp user {player} parent set {group}"
+  regular:
+    time: 1d 4h 0m 0s
+    to: trusted
+    command: "lp user {player} parent set {group}"
+
+# Please do not change or delete this!
+ConfigVersion: 1.0
