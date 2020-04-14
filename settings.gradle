@@ -1,0 +1,3 @@
+rootProject.name = 'autorankup'
+
+include 'autorankup-common', 'autorankup-spigot', 'autorankup-bungeecord'

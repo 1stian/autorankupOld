@@ -1,0 +1,9 @@
+name: AutoRankUp
+version: @version@
+main: com.ohneemc.autorankup.AutoRankUpSpigot
+api-version: 1.13
+prefix: AutoRankUp
+depend: [PlaceholderAPI, Plan]
+authors: [1stian]
+description: A plugin that will automatically rank up players based on active play time.
+website: https://ohneemc.com
