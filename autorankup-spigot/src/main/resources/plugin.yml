@@ -1,7 +1,7 @@
 name: AutoRankUp
 version: @version@
 main: com.ohneemc.autorankup.AutoRankUpSpigot
-api-version: 1.13
+api-version: "1.15"
 prefix: AutoRankUp
 depend: [PlaceholderAPI, Plan]
 authors: [1stian]
