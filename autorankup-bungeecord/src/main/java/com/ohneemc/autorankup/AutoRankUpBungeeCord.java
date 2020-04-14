@@ -6,11 +6,12 @@ public final class AutoRankUpBungeeCord extends Plugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        getProxy().registerChannel("autorank:rank");
+        getLogger().info("Plugin enabled!");
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        getLogger().info("Plugin disabled!");
     }
 }
