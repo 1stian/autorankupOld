@@ -1,3 +1,5 @@
-rootProject.name = 'autorankup'
+rootProject.name = 'AutoRankUp'
 
-include 'autorankup-common', 'autorankup-spigot', 'autorankup-bungeecord'
+include 'common'
+include 'spigot'
+include 'bungeecord'

@@ -1,0 +1,4 @@
+name: AutoRankUp
+version: @version@
+main: com.ohneemc.autorankup.AutoRankUpBungeeCord
+description: BungeeMessage relay for AutoRankUp

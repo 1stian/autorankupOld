@@ -1,5 +1,5 @@
 name: AutoRankUp
-version: 1.0.0
+version: @version@
 main: com.ohneemc.autorankup.AutoRankUpSpigot
 api-version: "1.15"
 prefix: AutoRankUp

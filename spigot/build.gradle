@@ -17,10 +17,11 @@ repositories {
 }
 
 dependencies {
-    compile project(':autorankup-common')
     compile 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.10.3'
 }
+
+archivesBaseName = 'AutoRankUp'
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
@@ -30,6 +31,6 @@ processResources {
 
 shadowJar {
     dependencies {
-        include(dependency(':autorankup-common'))
+        include(dependency(':common'))
     }
 }

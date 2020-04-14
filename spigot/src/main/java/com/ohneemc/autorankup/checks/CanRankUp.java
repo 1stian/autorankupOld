@@ -14,14 +14,12 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.bukkit.Bukkit.getServer;
-
 public class CanRankUp {
     private static final Logger log = Logger.getLogger("Minecraft");
 
     // List
-    private HashMap<String, String> rankTime = new HashMap<>();
-    private HashMap<String, String> rankTo = new HashMap<>();
+    private static HashMap<String, String> rankTime = new HashMap<>();
+    private static HashMap<String, String> rankTo = new HashMap<>();
 
     enum PlanType{
         TOTAL, ACTIVE, AFK
@@ -32,7 +30,7 @@ public class CanRankUp {
      *
      * @param player The player to rank up
      */
-    public void rankUp(Player player){
+    public static void rankUp(Player player){
         if (rankChecker(player)){
             // Player group
             String groupPlaceholder = "%luckperms_primary_group_name%";
@@ -88,7 +86,7 @@ public class CanRankUp {
      * @param player The player to check
      * @return True if eligible or false if not
      */
-    private boolean rankChecker(Player player){
+    private static boolean rankChecker(Player player){
         // Grabbing ranks and time
         grabRankUps();
         // Player group
@@ -157,7 +155,7 @@ public class CanRankUp {
      * @param planType What type of data you want
      * @return A string with the data you requested
      */
-    private String getType(Player player, PlanType planType){
+    private static String getType(Player player, PlanType planType){
         String plan = "No data";
         switch (planType) {
             case ACTIVE:
@@ -176,12 +174,10 @@ public class CanRankUp {
     /***
      * Grabbing ranks and how long it will take to reach of them
      */
-    private void grabRankUps(){
+    private static void grabRankUps(){
         ConfigurationSection section = Config.getSection("ranks");
-
         if (section == null){
             Bukkit.getLogger().log(Level.SEVERE, "Could't not grab ranks from config.. Please check your config.");
-            getServer().getPluginManager().disablePlugin(AutoRankUpSpigot.getAutoRankUpSpigot());
             return;
         }
 
