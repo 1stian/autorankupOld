@@ -15,6 +15,6 @@ deploy:
   provider: releases
   api_key: "35c4d2400463132460c5c53203d3d6c3d6ee38cf"
   file: "builds/*.jar"
-  skip_cleanup: true
+  cleanup: false
   on:
    tags: true
