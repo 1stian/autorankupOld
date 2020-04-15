@@ -32,6 +32,7 @@ public class CanRankUp {
      */
     public static void rankUp(Player player){
         if (rankChecker(player)){
+            log.info("[AutoRankUp] - " + player.getName() + " ranked up!");
             // Player group
             String groupPlaceholder = "%luckperms_primary_group_name%";
             String playerGroup = PlaceholderAPI.setPlaceholders(player, groupPlaceholder);
