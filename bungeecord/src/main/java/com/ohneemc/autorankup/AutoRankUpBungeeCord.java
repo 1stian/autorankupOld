@@ -13,6 +13,9 @@ public final class AutoRankUpBungeeCord extends Plugin {
         autoRankUpBungeeCord = this;
         getProxy().registerChannel(CHANNEL);
         getLogger().info("Plugin enabled!");
+
+        // Register event
+        getProxy().getPluginManager().registerListener(this, new PluginMessageReceiver());
     }
 
     @Override
