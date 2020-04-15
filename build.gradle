@@ -13,17 +13,6 @@ plugins {
     id "com.github.johnrengelman.shadow" version "5.2.0"
 }
 
-def determineBuildVersion = {
-    def buildInfo = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'rev-list', '--count', 'HEAD'
-        standardOutput = buildInfo
-    }
-    // Magic number: git rev-list --count cdb13e3b663b18e3938ad5efc60d165fa9301f6e
-    return Integer.parseInt(buildInfo.toString().replaceAll("[^0-9]", "")) - 3529
-}
-def buildVersion = determineBuildVersion()
-
 allprojects {
     wrapper.gradleVersion = "6.3"
 
@@ -32,8 +21,7 @@ allprojects {
 
     ext.majorVersion = '1'
     ext.minorVersion = '1'
-    ext.buildVersion = buildVersion
-    ext.fullVersion = project.ext.majorVersion + '.' + project.ext.minorVersion + "." + System.getenv('BUILD_NUMBER')
+    ext.fullVersion = project.ext.majorVersion + '.' + project.ext.minorVersion + "." + System.getenv('$BUILD_NUMBER')
 
     // Fix for UTF-8 files showing with wrong encoding when compiled on Windows machines.
     compileJava { options.encoding = "UTF-8" }
