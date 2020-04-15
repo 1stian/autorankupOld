@@ -23,27 +23,22 @@ public class Messages implements PluginMessageListener {
         if (!channel.equalsIgnoreCase(CHANNEL)) {
             return;
         }
+        ByteArrayDataInput in = ByteStreams.newDataInput(message);
+        String subchannel = in.readUTF();
 
+        if (subchannel.equalsIgnoreCase(CHANNEL)){
+            short len = in.readShort();
+            byte[] msgbytes = new byte[len];
+            in.readFully(msgbytes);
 
-        try {
-            DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
-            String subchannel = in.readUTF();
-            if (subchannel.equals(SUB_CHANNEL)) {
-                short len = in.readShort();
-                byte[] data = new byte[len];
-                in.readFully(data);
-
-                //bytearray to string
-                String s = new String(data);
-
-                Bukkit.broadcastMessage("SUB");
-                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s));
+            DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
+            try {
+                String msg = msgin.readUTF();
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msg));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
-
-
         //ByteArrayDataInput in = ByteStreams.newDataInput( message );
         //String subChannel = in.readUTF();
         //if ( subChannel.equalsIgnoreCase( SUB_CHANNEL ) )
@@ -89,34 +84,19 @@ public class Messages implements PluginMessageListener {
         out.writeUTF("Forward");
         out.writeUTF("ALL");
         out.writeUTF(CHANNEL);
-        byte[] data = out.toByteArray();
 
         new BukkitRunnable() {
             @Override
             public void run() {
-                Collection<? extends Player> players = getServer().getOnlinePlayers();
                 ByteArrayOutputStream msgbytes = new ByteArrayOutputStream();
                 DataOutputStream msgout = new DataOutputStream(msgbytes);
-
-                Player p = Iterables.getFirst(players, null);
-                if (p == null) {
-                    return;
+                try{
+                    msgout.writeUTF(msg);
+                }catch (Exception ex){
+                    ex.printStackTrace();
                 }
-                //Bukkit.getLogger().log(Level.INFO, "Sent to: " + CHANNEL + " : " + msg);
-                //p.sendPluginMessage(getAutoRankUpSpigot(), CHANNEL, data);
-
-                try {
-                    msgout.writeUTF(msg); // You can do anything you want with msgout
-                    msgout.writeShort(32);
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
                 out.writeShort(msgbytes.toByteArray().length);
                 out.write(msgbytes.toByteArray());
-
-                p.sendPluginMessage(getAutoRankUpSpigot(), CHANNEL, out.toByteArray());
-
                 cancel();
             }
         }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);

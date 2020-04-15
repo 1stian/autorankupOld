@@ -1,6 +1,5 @@
 package com.ohneemc.autorankup;
 
-import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -25,23 +24,37 @@ public class PluginMsg implements Listener {
         if (!event.getTag().equalsIgnoreCase(CHANNEL)) return;
 
         ByteArrayDataInput in = ByteStreams.newDataInput(event.getData());
-        //String subChannel = in.readUTF();
+        String subchannel = in.readUTF();
 
+        if (subchannel.equalsIgnoreCase(CHANNEL)){
+            short len = in.readShort();
+            byte[] msgbytes = new byte[len];
+            in.readFully(msgbytes);
+
+            DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
+            try {
+                String msg = msgin.readUTF();
+                autoRankUpBungeeCord.getLogger().info("Received msg: " + msg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /*
         if (event.getReceiver() instanceof ProxiedPlayer) {
             ProxiedPlayer receiver = (ProxiedPlayer) event.getReceiver();
-            String msg = in.readUTF();
             autoRankUpBungeeCord.getLogger().info("Received msg from: " + receiver.getName());
             autoRankUpBungeeCord.getLogger().info(msg);
-            //sendCustomData(receiver, msg, 32);
+            sendCustomData(receiver, msg, in.readShort());
         }
 
         if (event.getReceiver() instanceof Server) {
             Server receiver = (Server) event.getReceiver();
-            String msg = in.readUTF();
-
             autoRankUpBungeeCord.getLogger().info("Received msg from: " + receiver.getInfo().getName());
             autoRankUpBungeeCord.getLogger().info(msg);
+
         }
+         */
     }
 
     public void sendCustomData(ProxiedPlayer player, String data1, int data2) {

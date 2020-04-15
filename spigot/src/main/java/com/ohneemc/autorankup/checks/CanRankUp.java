@@ -76,7 +76,7 @@ public class CanRankUp {
                 String rPlayer = AutoRankUpSpigot.getBroadcastMsg().replace("{player}", player.getName());
                 String rGroup = rPlayer.replace("{rank_to}", toRank);
 
-                Messages.forwardString(AutoRankUpSpigot.SUB_CHANNEL, "ALL", rGroup);
+                Messages.sendBroadcast(rGroup);
             }
         }
     }
