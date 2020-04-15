@@ -13,18 +13,21 @@ public class Autorankup implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("Autorankup")){
             if (args.length < 1){
                 sender.sendMessage(ChatColor.AQUA + "[" + ChatColor.WHITE + "AutoRankUp" + ChatColor.AQUA
-                        + "]" + ChatColor.GREEN + "Thank you for using AutoRank" + ChatColor.AQUA +"("
+                        + "]" + ChatColor.GREEN + " Thank you for using AutoRankUp" + ChatColor.AQUA +" ("
                         + ChatColor.YELLOW + AutoRankUpSpigot.getAutoRankUpSpigot().
                         getDescription().getVersion() + ChatColor.AQUA + ")");
                 sender.sendMessage(ChatColor.AQUA + "[" + ChatColor.WHITE + "AutoRankUp" + ChatColor.AQUA
-                        + "]" + ChatColor.GREEN + "For config reload do" + ChatColor.AQUA +"/Autorankup reload");
-            }else if(args[1].equalsIgnoreCase("reload")){
+                        + "]" + ChatColor.GREEN + " For config reload do" + ChatColor.AQUA +"/Autorankup reload");
+                return true;
+            }else if(args[0].equalsIgnoreCase("reload")){
                 if (Config.reloadConfig()){
                     sender.sendMessage(ChatColor.AQUA + "[" + ChatColor.WHITE + "AutoRankUp" + ChatColor.AQUA
-                            + "]" + ChatColor.GREEN + "Config has been" + ChatColor.AQUA +"reloaded");
+                            + "]" + ChatColor.GREEN + " Config has been" + ChatColor.AQUA +"reloaded");
+                    return true;
                 }else{
                     sender.sendMessage(ChatColor.AQUA + "[" + ChatColor.WHITE + "AutoRankUp" + ChatColor.AQUA
-                            + "]" + ChatColor.RED + "Something wrong happened while reloading the config.");
+                            + "]" + ChatColor.RED + " Something wrong happened while reloading the config.");
+                    return true;
                 }
             }
         }
