@@ -10,7 +10,7 @@ settings:
   # Whether or not to send a message to the player who ranks up.
   player: true
   # Message for the player who ranks up.
-  playermessage: "&aGood job!& b{player}&a, you just ranked up to &6{rank_to}"
+  playermessage: "&aGood job! &b{player}&a, you just ranked up to &6{rank_to}"
 bungee:
   # If you want to send the broadcast message to your bungee network.
   broadcast: false
