@@ -20,13 +20,12 @@ import static org.bukkit.Bukkit.getServer;
 public class Messages implements PluginMessageListener {
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        if ( !channel.equalsIgnoreCase(CHANNEL) )
-        {
+        if (!channel.equalsIgnoreCase(CHANNEL)) {
             return;
         }
 
 
-        try{
+        try {
             DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
             String subchannel = in.readUTF();
             if (subchannel.equals(SUB_CHANNEL)) {
@@ -40,7 +39,7 @@ public class Messages implements PluginMessageListener {
                 Bukkit.broadcastMessage("SUB");
                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s));
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -57,25 +56,32 @@ public class Messages implements PluginMessageListener {
         //}
     }
 
-    public static void forwardString(String subChannel, String target, String s){
-        try{
-            ByteArrayOutputStream b = new ByteArrayOutputStream();
-            DataOutputStream out = new DataOutputStream(b);
+    public static void forwardString(String subChannel, String target, String s) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                ByteArrayOutputStream b = new ByteArrayOutputStream();
+                DataOutputStream out = new DataOutputStream(b);
+                try {
+                    out.writeUTF("Forward");
+                    out.writeUTF(target);
+                    out.writeUTF(subChannel); // "customchannel" for example
+                    byte[] data = s.getBytes();
+                    out.writeShort(data.length);
+                    out.write(data);
 
-            out.writeUTF("Forward");
-            out.writeUTF(target);
-            out.writeUTF(subChannel); // "customchannel" for example
-            byte[] data = s.getBytes();
-            out.writeShort(data.length);
-            out.write(data);
 
-            Collection<? extends Player> players = getServer().getOnlinePlayers();
-            Player p = Iterables.getFirst(players, null);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
 
-            p.sendPluginMessage(getAutoRankUpSpigot(), CHANNEL, b.toByteArray());
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
+                Collection<? extends Player> players = getServer().getOnlinePlayers();
+                Player p = Iterables.getFirst(players, null);
+
+                p.sendPluginMessage(getAutoRankUpSpigot(), CHANNEL, b.toByteArray());
+                cancel();
+            }
+        }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);
     }
 
     public static void sendBroadcast(String msg) {
@@ -102,7 +108,7 @@ public class Messages implements PluginMessageListener {
                 try {
                     msgout.writeUTF(msg); // You can do anything you want with msgout
                     msgout.writeShort(32);
-                } catch (IOException exception){
+                } catch (IOException exception) {
                     exception.printStackTrace();
                 }
 
