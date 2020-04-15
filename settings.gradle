@@ -3,3 +3,5 @@ rootProject.name = 'AutoRankUp'
 include 'common'
 include 'spigot'
 include 'bungeecord'
+include 'plugin'
+

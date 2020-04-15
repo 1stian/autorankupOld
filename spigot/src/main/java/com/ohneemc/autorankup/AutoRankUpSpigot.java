@@ -31,6 +31,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        autoRankUpSpigot = this;
         // Saving and reloading config file
         saveDefaultConfig();
         reloadConfig();

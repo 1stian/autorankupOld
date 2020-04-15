@@ -1,0 +1,30 @@
+dependencies {
+    compile project(path: ":common", configuration: 'shadow')
+    compile project(path: ":bungeecord", configuration: 'shadow')
+    compile project(path: ":spigot", configuration: 'shadow')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+shadowJar {
+    configurations = [project.configurations.compile]
+
+    destinationDir = file("$rootDir/builds/")
+    baseName = "AutoRankUp"
+    classifier = null
+}
+
+build {
+    dependsOn tasks.named("shadowJar")
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.ohneemc'
+            artifactId = 'AutoRankUp-plugin'
+            version = "$fullVersion"
+
+            artifact shadowJar
+        }
+    }
+}

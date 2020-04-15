@@ -4,14 +4,49 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.2'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
     }
 }
 
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+}
+
+def determineBuildVersion = {
+    def buildInfo = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-list', '--count', 'HEAD'
+        standardOutput = buildInfo
+    }
+    // Magic number: git rev-list --count cdb13e3b663b18e3938ad5efc60d165fa9301f6e
+    return Integer.parseInt(buildInfo.toString().replaceAll("[^0-9]", "")) - 3529
+}
+def buildVersion = determineBuildVersion()
+
+allprojects {
+    wrapper.gradleVersion = "6.2.1"
+
+    group "com.ohneemc"
+    version "1.1-SNAPSHOT"
+
+    ext.majorVersion = '1'
+    ext.minorVersion = '1'
+    ext.buildVersion = buildVersion
+    ext.fullVersion = project.ext.majorVersion + '.' + project.ext.minorVersion + ' build ' + project.ext.buildVersion
+
+    // Fix for UTF-8 files showing with wrong encoding when compiled on Windows machines.
+    compileJava { options.encoding = "UTF-8" }
+    tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+    javadoc { options.encoding = 'UTF-8' }
+}
+
+println "Building artifact for version $fullVersion"
+
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'maven'
-    apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: "java"
+    apply plugin: "maven-publish"
+    apply plugin: "com.github.johnrengelman.shadow"
 
     group = project.pluginGroup
     version = project.pluginVersion
@@ -21,5 +56,18 @@ subprojects {
 
     repositories {
         mavenCentral()
+        maven { // Spigot Repository
+            url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+        }
+        maven { // BungeeCord Repository
+            url = "https://oss.sonatype.org/content/repositories/snapshots"
+        }
+        maven { // bStats Repository
+            url = "https://repo.codemc.org/repository/maven-public"
+        }
     }
+}
+
+configurations {
+    testArtifacts.extendsFrom testRuntime
 }

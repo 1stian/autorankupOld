@@ -1,0 +1,34 @@
+dependencies {
+
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+task updateVersion(type: Copy) {
+    from('src/main/resources') {
+        include 'plugin.yml'
+        include 'bungee.yml'
+    }
+    into 'build/sources/resources/'
+    filter(ReplaceTokens, tokens: [version: '' + project.ext.fullVersion])
+}
+processResources {
+    dependsOn updateVersion
+    from 'build/sources/resources'
+}
+
+shadowJar {
+    dependsOn processResources
+    configurations = [project.configurations.compile]
+
+    // Exclude these files
+    exclude "**/*.svg"
+    exclude "**/*.psd"
+
+    exclude "**/module-info.class"
+    exclude 'META-INF/' // Causes Sponge to crash
+
+    // Exclude test dependencies
+    exclude "org/**/*"
+    exclude "google/protobuf/**/*"
+    exclude "gnu/**/*"
+}
