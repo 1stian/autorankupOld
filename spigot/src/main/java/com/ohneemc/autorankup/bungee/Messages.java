@@ -53,6 +53,6 @@ public class Messages implements PluginMessageListener {
 
                 cancel();
             }
-        }.runTaskTimer(getAutoRankUpSpigot(), 1L, 100L);
+        }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);
     }
 }

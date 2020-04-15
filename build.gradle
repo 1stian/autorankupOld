@@ -25,7 +25,7 @@ def determineBuildVersion = {
 def buildVersion = determineBuildVersion()
 
 allprojects {
-    wrapper.gradleVersion = "6.2.1"
+    wrapper.gradleVersion = "6.3"
 
     group "com.ohneemc"
     version "1.1-SNAPSHOT"
