@@ -78,7 +78,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        log.info("Disabling");
     }
 
     /***
