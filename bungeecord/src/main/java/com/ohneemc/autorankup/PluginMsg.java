@@ -5,7 +5,6 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -34,7 +33,7 @@ public class PluginMsg implements Listener {
             DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
             try {
                 String msg = msgin.readUTF();
-                autoRankUpBungeeCord.getLogger().info("Received msg: " + msg);
+                autoRankUpBungeeCord.getLogger().info("[AutoRank] Received msg: " + msg);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -57,6 +56,7 @@ public class PluginMsg implements Listener {
          */
     }
 
+    // Not used at the moment.
     public void sendCustomData(ProxiedPlayer player, String data1, int data2) {
         Collection<ProxiedPlayer> networkPlayers = ProxyServer.getInstance().getPlayers();
         // perform a check to see if globally are no players
