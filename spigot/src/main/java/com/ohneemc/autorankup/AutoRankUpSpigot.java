@@ -2,6 +2,8 @@ package com.ohneemc.autorankup;
 
 import com.ohneemc.autorankup.bungee.Messages;
 import com.ohneemc.autorankup.checks.CanRankUp;
+import com.ohneemc.autorankup.commands.Autorankup;
+import com.ohneemc.autorankup.commands.Check;
 import com.ohneemc.autorankup.config.Config;
 import com.ohneemc.autorankup.events.OnPlayer;
 import org.bukkit.Bukkit;
@@ -15,7 +17,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     //Public
     public static boolean debug = false;
     public static final Logger log = Logger.getLogger("Minecraft");
-    public static final String CHANNEL = "autorank:rank";
+    public static final String CHANNEL = "Autorankup:rank";
     public static final String SUB_CHANNEL = "rankup";
 
     // Private
@@ -65,6 +67,10 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         // Check on player join
         if (getPlayerJoin())
             getServer().getPluginManager().registerEvents(new OnPlayer(), this);
+
+        // Register commands
+        getCommand("check").setExecutor(new Check());
+        getCommand("autorankup").setExecutor(new Autorankup());
 
         // Initiate task
         task();

@@ -7,3 +7,14 @@ depend: [PlaceholderAPI, Plan]
 authors: [1stian]
 description: A plugin that will automatically rank up players based on active play time.
 website: https://ohneemc.com
+commands:
+  check:
+    description: Gives you total, active and afk time of a player
+    usage: /check <name>
+    permission-message: You do not have access to /check
+    permission: autorankup.check
+  autorankup:
+    description: Admin command, shows version and sub command for relaod config.
+    usage: /autorank | /autorank reload
+    permission-message: You do not have access to /autorankup
+    permission: autorankup.admin
