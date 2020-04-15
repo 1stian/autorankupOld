@@ -34,6 +34,7 @@ public class Messages implements PluginMessageListener {
             String msg = in.readUTF();
             int sh = in.readInt();
 
+            Bukkit.broadcastMessage("SUB");
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msg));
         }
     }

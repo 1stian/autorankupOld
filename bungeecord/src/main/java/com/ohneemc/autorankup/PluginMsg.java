@@ -24,13 +24,13 @@ public class PluginMsg implements Listener {
         if (!event.getTag().equalsIgnoreCase(CHANNEL)) return;
 
         ByteArrayDataInput in = ByteStreams.newDataInput(event.getData());
-        String subChannel = in.readUTF();
+        //String subChannel = in.readUTF();
 
         if (event.getReceiver() instanceof ProxiedPlayer) {
             ProxiedPlayer receiver = (ProxiedPlayer) event.getReceiver();
             String msg = in.readUTF();
             autoRankUpBungeeCord.getLogger().info("Received msg from: " + receiver.getName());
-            sendCustomData(receiver, msg, 32);
+            sendCustomData(msg, 32);
         }
 
         if (event.getReceiver() instanceof Server) {
@@ -54,11 +54,11 @@ public class PluginMsg implements Listener {
 
 
             autoRankUpBungeeCord.getLogger().info("Received msg from: " + receiver.getInfo().getName());
-            //sendCustomData(receiver, msg, 32);
+            sendCustomData(msg, 32);
         }
     }
 
-    public void sendCustomData(ProxiedPlayer player, String data1, int data2) {
+    public void sendCustomData(String data1, int data2) {
         Collection<ProxiedPlayer> networkPlayers = ProxyServer.getInstance().getPlayers();
         // perform a check to see if globally are no players
         if (networkPlayers == null || networkPlayers.isEmpty()) return;
@@ -73,7 +73,8 @@ public class PluginMsg implements Listener {
         // using only the server to send data the packet will be lost if no players are in it
         //player.getServer().getInfo().sendData( CHANNEL, out.toByteArray() );
         //server.sendData(CHANNEL, out.toByteArray());
-        autoRankUpBungeeCord.getProxy().getServerInfo(autoRankUpBungeeCord.getProxy()
-                .getName()).sendData(CHANNEL, out.toByteArray());
+        //autoRankUpBungeeCord.getProxy().getServerInfo(autoRankUpBungeeCord.getProxy()
+        //        .getName()).sendData(CHANNEL, out.toByteArray());
+        autoRankUpBungeeCord.getProxy().getServerInfo("ALL").sendData(CHANNEL, out.toByteArray());
     }
 }
