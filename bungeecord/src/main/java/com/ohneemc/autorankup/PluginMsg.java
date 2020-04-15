@@ -1,5 +1,6 @@
 package com.ohneemc.autorankup;
 
+import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -30,35 +31,20 @@ public class PluginMsg implements Listener {
             ProxiedPlayer receiver = (ProxiedPlayer) event.getReceiver();
             String msg = in.readUTF();
             autoRankUpBungeeCord.getLogger().info("Received msg from: " + receiver.getName());
-            sendCustomData(msg, 32);
+            autoRankUpBungeeCord.getLogger().info(msg);
+            //sendCustomData(receiver, msg, 32);
         }
 
         if (event.getReceiver() instanceof Server) {
             Server receiver = (Server) event.getReceiver();
             String msg = in.readUTF();
 
-            short len = in.readShort();
-            byte[] msgbytes = new byte[len];
-            in.readFully(msgbytes);
-
-            DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
-            try {
-                String somedata = msgin.readUTF(); // Read the data in the same way you wrote it
-                short somenumber = msgin.readShort();
-
-                autoRankUpBungeeCord.getLogger().info("Received msg from: " + somedata);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-
             autoRankUpBungeeCord.getLogger().info("Received msg from: " + receiver.getInfo().getName());
-            sendCustomData(msg, 32);
+            autoRankUpBungeeCord.getLogger().info(msg);
         }
     }
 
-    public void sendCustomData(String data1, int data2) {
+    public void sendCustomData(ProxiedPlayer player, String data1, int data2) {
         Collection<ProxiedPlayer> networkPlayers = ProxyServer.getInstance().getPlayers();
         // perform a check to see if globally are no players
         if (networkPlayers == null || networkPlayers.isEmpty()) return;
@@ -71,10 +57,13 @@ public class PluginMsg implements Listener {
         // we send the data to the server
         // using ServerInfo the packet is being queued if there are no players in the server
         // using only the server to send data the packet will be lost if no players are in it
+        player.getServer().getInfo().sendData( CHANNEL, out.toByteArray() );
+
+
         //player.getServer().getInfo().sendData( CHANNEL, out.toByteArray() );
         //server.sendData(CHANNEL, out.toByteArray());
         //autoRankUpBungeeCord.getProxy().getServerInfo(autoRankUpBungeeCord.getProxy()
         //        .getName()).sendData(CHANNEL, out.toByteArray());
-        autoRankUpBungeeCord.getProxy().getServerInfo("ALL").sendData(CHANNEL, out.toByteArray());
+        //autoRankUpBungeeCord.getProxy().getServerInfo("ALL").sendData(CHANNEL, out.toByteArray());
     }
 }
