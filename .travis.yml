@@ -11,10 +11,10 @@ before_install:
 script:
   - ./gradlew build
   
-  deploy:
-   provider: releases
-   api_key: "35c4d2400463132460c5c53203d3d6c3d6ee38cf"
-   file: "builds/*.jar"
-   skip_cleanup: true
-   on:
-    tags: true
+deploy:
+  provider: releases
+  api_key: "35c4d2400463132460c5c53203d3d6c3d6ee38cf"
+  file: "builds/*.jar"
+  skip_cleanup: true
+  on:
+   tags: true
