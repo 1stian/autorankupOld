@@ -69,6 +69,8 @@ public class Messages implements PluginMessageListener {
                 out.writeShort(msgbytes.toByteArray().length);
                 out.write(msgbytes.toByteArray());
 
+                p.sendPluginMessage(getAutoRankUpSpigot(), CHANNEL, out.toByteArray());
+
                 cancel();
             }
         }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);
