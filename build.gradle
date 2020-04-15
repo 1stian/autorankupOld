@@ -16,12 +16,12 @@ plugins {
 allprojects {
     wrapper.gradleVersion = "6.3"
 
-    group "com.ohneemc"
-    version "1.1-SNAPSHOT"
-
     ext.majorVersion = '1'
     ext.minorVersion = '1'
     ext.fullVersion = project.ext.majorVersion + '.' + project.ext.minorVersion + "." + System.getenv('BUILD_NUMBER')
+
+    group "com.ohneemc"
+    version "$fullVersion"
 
     // Fix for UTF-8 files showing with wrong encoding when compiled on Windows machines.
     compileJava { options.encoding = "UTF-8" }
@@ -37,7 +37,7 @@ subprojects {
     apply plugin: "com.github.johnrengelman.shadow"
 
     group = project.pluginGroup
-    version = project.pluginVersion
+    version = "$fullVersion"
 
     sourceCompatibility = '1.8'
     targetCompatibility = '1.8'
