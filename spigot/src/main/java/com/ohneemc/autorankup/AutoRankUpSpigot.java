@@ -86,6 +86,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
      */
     private void task() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            log.info("[AutoRankUp] - checking for eligible players.");
                     for (Player player : Bukkit.getOnlinePlayers()){
                         CanRankUp.rankUp(player);
                     }
