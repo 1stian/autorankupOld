@@ -92,7 +92,9 @@ public class CanRankUp {
         // Player group
         String groupPlaceholder = "%luckperms_primary_group_name%";
         String playerGroup = PlaceholderAPI.setPlaceholders(player, groupPlaceholder);
-
+        if (!rankTo.containsKey(playerGroup)){
+            return false;
+        }
         // Getting how long the player has been active for
         String activeTime = getType(player, PlanType.ACTIVE);
         // Getting the time required for rank up
