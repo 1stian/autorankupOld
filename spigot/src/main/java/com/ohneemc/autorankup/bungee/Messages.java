@@ -14,13 +14,13 @@ import java.io.*;
 import java.util.Collection;
 
 import static com.ohneemc.autorankup.AutoRankUpSpigot.*;
-import static org.bukkit.Bukkit.getServer;
 
 
 public class Messages implements PluginMessageListener {
+
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        if (!channel.equalsIgnoreCase(CHANNEL)) {
+        if (!channel.equalsIgnoreCase("BungeeCord")) {
             return;
         }
         ByteArrayDataInput in = ByteStreams.newDataInput(message);
@@ -39,46 +39,12 @@ public class Messages implements PluginMessageListener {
                 e.printStackTrace();
             }
         }
-        //ByteArrayDataInput in = ByteStreams.newDataInput( message );
-        //String subChannel = in.readUTF();
-        //if ( subChannel.equalsIgnoreCase( SUB_CHANNEL ) )
-        //{
-        //   String msg = in.readUTF();
-        //    int sh = in.readInt();
-
-        //    Bukkit.broadcastMessage("SUB");
-        //   Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msg));
-        //}
     }
 
-    public static void forwardString(String subChannel, String target, String s) {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                ByteArrayOutputStream b = new ByteArrayOutputStream();
-                DataOutputStream out = new DataOutputStream(b);
-                try {
-                    out.writeUTF("Forward");
-                    out.writeUTF(target);
-                    out.writeUTF(subChannel); // "customchannel" for example
-                    byte[] data = s.getBytes();
-                    out.writeShort(data.length);
-                    out.write(data);
-
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-                Collection<? extends Player> players = getServer().getOnlinePlayers();
-                Player p = Iterables.getFirst(players, null);
-
-                p.sendPluginMessage(getAutoRankUpSpigot(), CHANNEL, b.toByteArray());
-                cancel();
-            }
-        }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);
-    }
-
+    /***
+     *
+     * @param msg Forward a message to bungee network.
+     */
     public static void sendBroadcast(String msg) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Forward");
@@ -97,6 +63,9 @@ public class Messages implements PluginMessageListener {
                 }
                 out.writeShort(msgbytes.toByteArray().length);
                 out.write(msgbytes.toByteArray());
+                Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+                Player p = Iterables.getFirst(players, null);
+                p.sendPluginMessage(getAutoRankUpSpigot(), "BungeeCord", out.toByteArray());
                 cancel();
             }
         }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);

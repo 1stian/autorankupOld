@@ -48,8 +48,8 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
         // Messages - Registering channels
         if (getBungeeBroadcast()){
-            this.getServer().getMessenger().registerOutgoingPluginChannel(this, CHANNEL);
-            this.getServer().getMessenger().registerIncomingPluginChannel(this, CHANNEL, new Messages());
+            this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+            this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new Messages());
         }
 
         // Checking for plugins.

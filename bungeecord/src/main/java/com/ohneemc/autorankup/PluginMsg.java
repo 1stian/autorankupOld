@@ -21,7 +21,7 @@ public class PluginMsg implements Listener {
 
     @EventHandler
     public void on(PluginMessageEvent event) {
-        if (!event.getTag().equalsIgnoreCase(CHANNEL)) return;
+        if (!event.getTag().equalsIgnoreCase("BungeeCord")) return;
 
         ByteArrayDataInput in = ByteStreams.newDataInput(event.getData());
         String subchannel = in.readUTF();
