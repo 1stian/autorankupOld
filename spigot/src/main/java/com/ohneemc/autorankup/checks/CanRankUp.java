@@ -100,7 +100,7 @@ public class CanRankUp {
         // Getting the time required for rank up
         String timeToRank = rankTime.get(playerGroup);
 
-        if (timeToRank == null){
+        if (timeToRank == null || activeTime == null){
             return false;
         }
 
@@ -169,6 +169,7 @@ public class CanRankUp {
             case TOTAL:
                 plan = PlaceholderAPI.setPlaceholders(player, "%plan_player_time_total%");
                 break;
+                default: return null;
         }
         return plan;
     }
