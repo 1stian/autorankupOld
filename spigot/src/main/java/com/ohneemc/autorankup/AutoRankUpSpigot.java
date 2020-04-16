@@ -24,6 +24,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
     // Private
     private static boolean USE_VAULT;
+    private static String GET_PLACEHOLDER;
     private static boolean BUNGEE_BROADCAST;
     private static boolean PLAYER_JOIN;
     private static boolean BROADCAST_ENB;
@@ -44,6 +45,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
         // Filling values
         USE_VAULT = Config.getBoolean("vault.enabled");
+        GET_PLACEHOLDER = Config.getString("placeholder.group");
         BUNGEE_BROADCAST = Config.getBoolean("bungee.broadcast");
         PLAYER_JOIN = Config.getBoolean("settings.login");
         BROADCAST_ENB = Config.getBoolean("settings.broadcast");
@@ -134,4 +136,6 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     public static boolean getVault() { return USE_VAULT; }
 
     public static Permission getPerms() { return perms; }
+
+    public static String getPlaceholder() {return GET_PLACEHOLDER; }
 }
