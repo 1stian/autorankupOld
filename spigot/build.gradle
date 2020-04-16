@@ -2,6 +2,8 @@ repositories {
     maven { // Placeholder API repository
         url = "http://repo.extendedclip.com/content/repositories/placeholderapi/"
     }
+
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -9,6 +11,7 @@ dependencies {
     compileOnly  "org.spigotmc:spigot-api:$spigotVersion"
     compile "org.bstats:bstats-bukkit:$bstatsVersion"
     compileOnly "me.clip:placeholderapi:$placeholderapiVersion"
+    compileOnly "com.github.MilkBowl:VaultAPI:$vaultVersion"
 }
 
 processResources {
