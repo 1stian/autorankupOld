@@ -33,18 +33,18 @@ public class CanRankUp {
      * @param player The player to rank up
      */
     public static void rankUp(Player player){
-        if (rankChecker(player)){
+        // Getting current group of player.
+        String playerGroup = null;
+        if (!getVault()){
+            String groupPlaceholder = getPlaceholder();
+            playerGroup = PlaceholderAPI.setPlaceholders(player, groupPlaceholder);
+        }else{
+            playerGroup = getPerms().getPrimaryGroup(player);
+        }
+
+        // Checking first if true, proceed with rank up.
+        if (rankChecker(player, playerGroup)){
             log.info("[AutoRankUp] - " + player.getName() + " ranked up!");
-            // Player group
-            String playerGroup = null;
-
-            if (!getVault()){
-                String groupPlaceholder = getPlaceholder();
-                playerGroup = PlaceholderAPI.setPlaceholders(player, groupPlaceholder);
-            }else{
-                playerGroup = getPerms().getPrimaryGroup(player);
-            }
-
             // What group the player should rank up to
             String toRank = rankTo.get(playerGroup);
 
@@ -121,19 +121,16 @@ public class CanRankUp {
      * @param player The player to check
      * @return True if eligible or false if not
      */
-    private static boolean rankChecker(Player player){
+    private static boolean rankChecker(Player player, String group){
         // Grabbing ranks and time
         grabRankUps();
-        // Player group
-        String groupPlaceholder = "%luckperms_primary_group_name%";
-        String playerGroup = PlaceholderAPI.setPlaceholders(player, groupPlaceholder);
-        if (!rankTo.containsKey(playerGroup)){
+        if (!rankTo.containsKey(group)){
             return false;
         }
         // Getting how long the player has been active for
         String activeTime = getType(player, PlanType.ACTIVE);
         // Getting the time required for rank up
-        String timeToRank = rankTime.get(playerGroup);
+        String timeToRank = rankTime.get(group);
 
         if (timeToRank == null || activeTime == null){
             return false;
