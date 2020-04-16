@@ -6,9 +6,11 @@ import com.ohneemc.autorankup.commands.Autorankup;
 import com.ohneemc.autorankup.commands.Check;
 import com.ohneemc.autorankup.config.Config;
 import com.ohneemc.autorankup.events.OnPlayer;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -21,6 +23,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     public static final String SUB_CHANNEL = "rankup";
 
     // Private
+    private static boolean USE_VAULT;
     private static boolean BUNGEE_BROADCAST;
     private static boolean PLAYER_JOIN;
     private static boolean BROADCAST_ENB;
@@ -28,6 +31,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     private static boolean PLAYER_ENB;
     private static String PLAYER_MSG;
     private static int FREQUENCY;
+    private static Permission perms = null;
 
     private static AutoRankUpSpigot autoRankUpSpigot;
 
@@ -39,6 +43,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         reloadConfig();
 
         // Filling values
+        USE_VAULT = Config.getBoolean("vault.enabled");
         BUNGEE_BROADCAST = Config.getBoolean("bungee.broadcast");
         PLAYER_JOIN = Config.getBoolean("settings.login");
         BROADCAST_ENB = Config.getBoolean("settings.broadcast");
@@ -58,10 +63,20 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             Bukkit.getPluginManager().registerEvents(this, this);
         } else {
-            throw new RuntimeException("Could not find PlaceholderAPI!! Plugin can not work without it!");
+            log.warning("Could not find PlaceholderAPI!! Plugin can not work without it! - AutoRankUp disabled.");
+            getServer().getPluginManager().disablePlugin(this);
         }
         if (Bukkit.getPluginManager().getPlugin("Plan") == null) {
-            throw new RuntimeException("Could not find Plan!! Plugin can not work without it!");
+            log.warning("Could not find Plan!! Plugin can not work without it! - AutoRankUp disabled.");
+            getServer().getPluginManager().disablePlugin(this);
+        }
+
+        if (USE_VAULT){
+            if (Bukkit.getPluginManager().getPlugin("Vault") == null){
+                log.warning("Could not find Vault!! Plugin can not work without it! - AutoRankUp disabled.");
+                getServer().getPluginManager().disablePlugin(this);
+            }
+            setupPermissions();
         }
 
         // Check on player join
@@ -96,6 +111,12 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
     public static AutoRankUpSpigot getAutoRankUpSpigot(){ return autoRankUpSpigot; }
 
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        perms = rsp.getProvider();
+        return perms != null;
+    }
+
     public static boolean getBungeeBroadcast(){ return BUNGEE_BROADCAST; }
 
     public static boolean getPlayerJoin(){ return PLAYER_JOIN; }
@@ -109,4 +130,6 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     public static String getPlayerMsg() { return PLAYER_MSG; }
 
     public static int getFREQUENCY() { return FREQUENCY; }
+
+    public static Permission getPerms() { return perms; }
 }
