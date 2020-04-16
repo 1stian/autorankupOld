@@ -1,3 +1,7 @@
+# AutoRankUp
+# made by 1stian
+# https://ohneemc.com
+#
 settings:
   # How frequent do you want it to check for rank ups. In minutes.
   frequency: 5
@@ -14,6 +18,10 @@ settings:
 bungee:
   # If you want to send the broadcast message to your bungee network.
   broadcast: false
+# Use vault for ranking up players.
+vault:
+  # If this is enabled, ensure you have vault installed! The command setting on each rank will be disabled.
+  enabled: false
 ranks:
   # The default rank of the server.
   owner:
