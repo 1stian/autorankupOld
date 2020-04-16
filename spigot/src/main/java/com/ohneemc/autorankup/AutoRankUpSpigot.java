@@ -131,5 +131,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
     public static int getFREQUENCY() { return FREQUENCY; }
 
+    public static boolean getVault() { return USE_VAULT; }
+
     public static Permission getPerms() { return perms; }
 }
