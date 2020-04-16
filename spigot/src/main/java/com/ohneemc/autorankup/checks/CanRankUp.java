@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.ohneemc.autorankup.AutoRankUpSpigot.*;
+
 public class CanRankUp {
     private static final Logger log = Logger.getLogger("Minecraft");
 
@@ -34,17 +36,34 @@ public class CanRankUp {
         if (rankChecker(player)){
             log.info("[AutoRankUp] - " + player.getName() + " ranked up!");
             // Player group
-            String groupPlaceholder = "%luckperms_primary_group_name%";
-            String playerGroup = PlaceholderAPI.setPlaceholders(player, groupPlaceholder);
+            String playerGroup = null;
+
+            if (!getVault()){
+                String groupPlaceholder = getPlaceholder();
+                playerGroup = PlaceholderAPI.setPlaceholders(player, groupPlaceholder);
+            }else{
+                playerGroup = getPerms().getPrimaryGroup(player);
+            }
+
             // What group the player should rank up to
             String toRank = rankTo.get(playerGroup);
+
+            if (getVault()){
+                if (rankUpVault(player, toRank)){
+                    sendMessages(player,toRank);
+                    log.log(Level.INFO, "[AutoRankUp] - Rankup successful");
+                }else{
+                    log.warning("[AutoRankUp] - Something wrong happened while ranking "
+                            + player.getName() + " up with vault..");
+                    return;
+                }
+                return;
+            }
             // Getting command to execute on rank up
             String rawCommand = Config.getString("ranks."+playerGroup+".command");
 
             if (rawCommand == null){
-                log.log(Level.INFO, ChatColor.AQUA + "[" + ChatColor.WHITE
-                        + "AutoRank" + ChatColor.AQUA
-                        + "]" + ChatColor.GREEN +" - Command section is empty for: " + playerGroup);
+                log.log(Level.INFO, "[AutoRankUp] - Command section is empty for: " + playerGroup);
                 return;
             }
 
@@ -53,32 +72,47 @@ public class CanRankUp {
 
             ConsoleCommandSender console = Bukkit.getConsoleSender();
             if (Bukkit.dispatchCommand(console, command)){
-                log.log(Level.SEVERE, ChatColor.AQUA + "[" + ChatColor.WHITE + "AutoRank" + ChatColor.AQUA + "]"
-                        + ChatColor.GREEN +" - Command successful");
+                log.log(Level.INFO, "[AutoRankUp] - Command successful");
             }else{
-                log.log(Level.SEVERE, ChatColor.AQUA + "[" + ChatColor.WHITE + "AutoRank" + ChatColor.AQUA + "]"
-                        + ChatColor.RED +" - Command failed");
+                log.log(Level.SEVERE, "[AutoRankUp] - Command failed");
             }
+        }
+    }
 
-            if (AutoRankUpSpigot.getPlayerEnb()){
-                String rPlayer = AutoRankUpSpigot.getPlayerMsg().replace("{player}", player.getName());
-                String rGroup = rPlayer.replace("{rank_to}", toRank);
+    /***
+     *
+     * @param player Which player to rank up
+     * @param group What group the player should rank to.
+     * @return True or false
+     */
+    private static boolean rankUpVault(Player player, String group){
+        return getPerms().playerAddGroup(player, group);
+    }
 
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', rGroup));
-            }
-            if (AutoRankUpSpigot.getBroadcastEnabled()){
-                String rPlayer = AutoRankUpSpigot.getBroadcastMsg().replace("{player}", player.getName());
-                String rGroup = rPlayer.replace("{rank_to}", toRank);
+    /***
+     *
+     * @param player The player who ranked up
+     * @param toRank What rank the player ranked up to
+     */
+    private static void sendMessages(Player player, String toRank){
+        if (AutoRankUpSpigot.getPlayerEnb()){
+            String rPlayer = AutoRankUpSpigot.getPlayerMsg().replace("{player}", player.getName());
+            String rGroup = rPlayer.replace("{rank_to}", toRank);
 
-                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', rGroup));
-            }
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', rGroup));
+        }
+        if (AutoRankUpSpigot.getBroadcastEnabled()){
+            String rPlayer = AutoRankUpSpigot.getBroadcastMsg().replace("{player}", player.getName());
+            String rGroup = rPlayer.replace("{rank_to}", toRank);
 
-            if (AutoRankUpSpigot.getBungeeBroadcast()){
-                String rPlayer = AutoRankUpSpigot.getBroadcastMsg().replace("{player}", player.getName());
-                String rGroup = rPlayer.replace("{rank_to}", toRank);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', rGroup));
+        }
 
-                Messages.sendBroadcast(rGroup);
-            }
+        if (AutoRankUpSpigot.getBungeeBroadcast()){
+            String rPlayer = AutoRankUpSpigot.getBroadcastMsg().replace("{player}", player.getName());
+            String rGroup = rPlayer.replace("{rank_to}", toRank);
+
+            Messages.sendBroadcast(rGroup);
         }
     }
 
