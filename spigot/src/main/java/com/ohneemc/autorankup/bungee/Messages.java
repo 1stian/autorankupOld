@@ -47,6 +47,25 @@ public class Messages implements PluginMessageListener {
      */
     public static void sendBroadcast(String msg) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("Message");
+        out.writeUTF("ALL");
+        out.writeUTF(ChatColor.translateAlternateColorCodes('&', msg));
+
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+                Player p = Iterables.getFirst(players, null);
+                if (p == null){
+                    return;
+                }
+                p.sendPluginMessage(getAutoRankUpSpigot(), "BungeeCord", out.toByteArray());
+                cancel();
+            }
+        }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);
+        /*
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Forward");
         out.writeUTF("ALL");
         out.writeUTF(CHANNEL);
@@ -72,5 +91,7 @@ public class Messages implements PluginMessageListener {
                 cancel();
             }
         }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);
+
+         */
     }
 }
