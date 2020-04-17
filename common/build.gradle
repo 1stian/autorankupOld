@@ -19,16 +19,4 @@ processResources {
 shadowJar {
     dependsOn processResources
     configurations = [project.configurations.compile]
-
-    // Exclude these files
-    exclude "**/*.svg"
-    exclude "**/*.psd"
-
-    exclude "**/module-info.class"
-    exclude 'META-INF/' // Causes Sponge to crash
-
-    // Exclude test dependencies
-    exclude "org/**/*"
-    exclude "google/protobuf/**/*"
-    exclude "gnu/**/*"
 }
