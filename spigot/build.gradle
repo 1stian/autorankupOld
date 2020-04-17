@@ -22,4 +22,5 @@ processResources {
 
 shadowJar {
     configurations = [project.configurations.compile]
+    relocate 'org.bstats', 'com.ohneemc.autorankup'
 }
