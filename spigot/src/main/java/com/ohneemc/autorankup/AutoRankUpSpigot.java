@@ -7,6 +7,7 @@ import com.ohneemc.autorankup.commands.Check;
 import com.ohneemc.autorankup.config.Config;
 import com.ohneemc.autorankup.events.OnPlayer;
 import net.milkbowl.vault.permission.Permission;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -42,6 +43,9 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         // Saving and reloading config file
         saveDefaultConfig();
         reloadConfig();
+
+        // Metrics
+        Metrics metrics = new Metrics(this, 7197);
 
         // Filling values
         USE_VAULT = Config.getBoolean("vault.enabled");
