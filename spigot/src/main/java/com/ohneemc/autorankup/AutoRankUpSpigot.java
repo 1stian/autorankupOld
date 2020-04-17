@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Collection;
 import java.util.logging.Logger;
 
 public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
@@ -108,6 +109,10 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
      */
     private void task() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+            if (players == null){
+                return;
+            }
             log.info("[AutoRankUp] - checking for eligible players.");
                     for (Player player : Bukkit.getOnlinePlayers()){
                         CanRankUp.rankUp(player);
