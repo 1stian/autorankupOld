@@ -65,6 +65,9 @@ public class Messages implements PluginMessageListener {
                 out.write(msgbytes.toByteArray());
                 Collection<? extends Player> players = Bukkit.getOnlinePlayers();
                 Player p = Iterables.getFirst(players, null);
+                if (p == null){
+                    return;
+                }
                 p.sendPluginMessage(getAutoRankUpSpigot(), "BungeeCord", out.toByteArray());
                 cancel();
             }
