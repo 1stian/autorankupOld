@@ -95,20 +95,20 @@ public class CanRankUp {
      * @param toRank What rank the player ranked up to
      */
     private static void sendMessages(Player player, String toRank){
-        if (AutoRankUpSpigot.getPlayerEnb()){
+        if (getPlayerEnb()){
             String rPlayer = AutoRankUpSpigot.getPlayerMsg().replace("{player}", player.getName());
             String rGroup = rPlayer.replace("{rank_to}", toRank);
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', rGroup));
         }
-        if (AutoRankUpSpigot.getBroadcastEnabled()){
+        if (getBroadcastEnabled() && !getBungeeBroadcast()){
             String rPlayer = AutoRankUpSpigot.getBroadcastMsg().replace("{player}", player.getName());
             String rGroup = rPlayer.replace("{rank_to}", toRank);
 
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', rGroup));
         }
 
-        if (AutoRankUpSpigot.getBungeeBroadcast()){
+        if (getBungeeBroadcast()){
             String rPlayer = AutoRankUpSpigot.getBroadcastMsg().replace("{player}", player.getName());
             String rGroup = rPlayer.replace("{rank_to}", toRank);
 
