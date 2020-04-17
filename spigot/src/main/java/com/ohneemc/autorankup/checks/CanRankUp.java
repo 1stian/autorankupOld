@@ -49,7 +49,7 @@ public class CanRankUp {
             String toRank = rankTo.get(playerGroup);
 
             if (getVault()){
-                if (rankUpVault(player, toRank, playerGroup)){
+                if (rankUpVault(player, toRank)){
                     sendMessages(player,toRank);
                     log.log(Level.INFO, "[AutoRankUp] - Rankup successful");
                 }else{
@@ -83,12 +83,10 @@ public class CanRankUp {
      *
      * @param player Which player to rank up
      * @param newGroup What group the player should rank to.
-     * @param oldGroup The group the player had.
      * @return True or false
      */
-    private static boolean rankUpVault(Player player, String newGroup, String oldGroup){
+    private static boolean rankUpVault(Player player, String newGroup){
         try {
-            getPerms().playerRemoveGroup(player, oldGroup);
             getPerms().playerAddGroup(player, newGroup);
             return true;
         }catch (Exception e){
