@@ -79,6 +79,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
                 getServer().getPluginManager().disablePlugin(this);
             }
             setupPermissions();
+            log.info("[AutoRankUp] - Using Vault system.");
         }
 
         // Check on player join
