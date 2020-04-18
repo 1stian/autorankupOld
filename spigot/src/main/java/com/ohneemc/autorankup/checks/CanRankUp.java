@@ -53,14 +53,16 @@ public class CanRankUp {
 
         // Checking first if true, proceed with rank up.
         if (rankChecker(player, playerGroup)){
-            log.info("[AutoRankUp] - " + player.getName() + " ranked up!");
+            if (getLogToConsole())
+                log.info("[AutoRankUp] - " + player.getName() + " ranked up!");
             // What group the player should rank up to
             String toRank = rankTo.get(playerGroup);
 
             if (getVault()){
                 if (rankUpVault(player, toRank)){
                     sendMessages(player,toRank);
-                    log.log(Level.INFO, "[AutoRankUp] - Rankup successful");
+                    if (getLogToConsole())
+                        log.log(Level.INFO, "[AutoRankUp] - Rankup successful");
                 }else{
                     log.warning("[AutoRankUp] - Something wrong happened while ranking "
                             + player.getName() + " up with vault..");
@@ -80,7 +82,8 @@ public class CanRankUp {
 
             ConsoleCommandSender console = Bukkit.getConsoleSender();
             if (Bukkit.dispatchCommand(console, command)){
-                log.log(Level.INFO, "[AutoRankUp] - Command successful");
+                if (getLogToConsole())
+                    log.log(Level.INFO, "[AutoRankUp] - Command successful");
             }else{
                 log.log(Level.SEVERE, "[AutoRankUp] - Command failed");
             }
