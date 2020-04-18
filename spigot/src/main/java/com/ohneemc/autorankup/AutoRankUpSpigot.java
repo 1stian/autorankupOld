@@ -112,7 +112,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     private void task() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-            if (players == null){
+            if (players.isEmpty()){
                 return;
             }
             log.info("[AutoRankUp] - checking for eligible players.");
