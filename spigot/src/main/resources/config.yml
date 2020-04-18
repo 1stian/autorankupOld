@@ -3,6 +3,8 @@
 # https://ohneemc.com
 #
 settings:
+  # Log rank ups to console?
+  console: true
   # How frequent do you want it to check for rank ups. In minutes.
   frequency: 5
   # Check if a player is eligible to rank up when they connect.
