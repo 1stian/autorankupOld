@@ -64,8 +64,5 @@ configurations {
 sonarqube {
     properties {
         property "sonar.projectKey", "1stian_autorankup"
-        property "sonar.organization", "1stian"
-        property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.login", "15f0b6bc2c0d4f7fdcff50f2b79f485fa9c4577f"
     }
 }
