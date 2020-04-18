@@ -94,7 +94,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
             getServer().getPluginManager().registerEvents(new OnPlayer(), this);
 
         // Register commands
-        getCommand("check").setExecutor(new Check());
+        getCommand("timecheck").setExecutor(new Check());
         getCommand("autorankup").setExecutor(new Autorankup());
 
         // Initiate task
