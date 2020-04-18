@@ -22,6 +22,8 @@ ____
 ***Dependencies***
 - [Plan](https://www.spigotmc.org/resources/plan-player-analytics.32536/), [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
 - Vault (Optional)
+
+**Installation**
 1. Download the plugin, and drop it into the plugins folder
 2. Restart the server.
 3. Stop the server, and configure the config file.
