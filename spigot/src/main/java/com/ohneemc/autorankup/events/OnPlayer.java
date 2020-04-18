@@ -11,7 +11,6 @@ public class OnPlayer implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        CanRankUp canRankUp = new CanRankUp();
-        canRankUp.rankUp(player);
+        CanRankUp.rankUp(player);
     }
 }
