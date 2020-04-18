@@ -24,7 +24,7 @@ public class Autorankup implements CommandExecutor {
             }else if(args[0].equalsIgnoreCase("reload")){
                 if (Config.reloadConfig()){
                     sender.sendMessage(ChatColor.AQUA + "[" + ChatColor.WHITE + autoRankTag + ChatColor.AQUA
-                            + "]" + ChatColor.GREEN + " Config has been" + ChatColor.AQUA +"reloaded");
+                            + "]" + ChatColor.GREEN + " Config has been" + ChatColor.AQUA +" reloaded");
                     return true;
                 }else{
                     sender.sendMessage(ChatColor.AQUA + "[" + ChatColor.WHITE + autoRankTag + ChatColor.AQUA
