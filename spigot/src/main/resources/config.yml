@@ -27,11 +27,11 @@ vault:
   enabled: false
 ranks:
   # The default rank of the server.
-  owner:
+  default:
     # The time in minutes to rank up.
     time: 0d 3h 0m 0s
     # The rank you want to put them in.
-    to: admin
+    to: regular
     # Command to send to the console on rank up.
     command: "lp user {player} parent set {group}"
   regular:
