@@ -34,7 +34,7 @@ public class PluginMsg implements Listener {
             DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
             try {
                 String msg = msgin.readUTF();
-                autoRankUpBungeeCord.getLogger().log(Level.INFO, "[AutoRank] Received msg: " + msg);
+                autoRankUpBungeeCord.getLogger().log(Level.INFO, "Received msg: {0}", msg);
             } catch (IOException e) {
                 e.printStackTrace();
             }

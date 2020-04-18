@@ -25,14 +25,14 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     public static final String SUB_CHANNEL = "rankup";
 
     // Private
-    private static boolean use_vault;
-    private static String get_placeholders;
-    private static boolean bungee_broadcast;
-    private static boolean player_join;
-    private static boolean broadcast_enb;
-    private static String broadcast_msg;
-    private static boolean player_enb;
-    private static String player_msg;
+    private static boolean useVault;
+    private static String get_Placeholder;
+    private static boolean bungeeBroadcast;
+    private static boolean playerJoin;
+    private static boolean broadcastEnb;
+    private static String broadcastMsg;
+    private static boolean playerEnb;
+    private static String playerMsg;
     private static int frequency;
     private static Permission perms = null;
 
@@ -49,19 +49,19 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         Metrics metrics = new Metrics(this, 7197);
 
         // Filling values
-        use_vault = Config.getBoolean("vault.enabled");
-        get_placeholders = Config.getString("placeholder.group");
-        bungee_broadcast = Config.getBoolean("bungee.broadcast");
-        player_join = Config.getBoolean("settings.login");
-        broadcast_enb = Config.getBoolean("settings.broadcast");
-        broadcast_msg = Config.getString("settings.broadcastmessage");
-        player_enb = Config.getBoolean("settings.player");
-        player_msg = Config.getString("settings.playermessage");
+        useVault = Config.getBoolean("vault.enabled");
+        get_Placeholder = Config.getString("placeholder.group");
+        bungeeBroadcast = Config.getBoolean("bungee.broadcast");
+        playerJoin = Config.getBoolean("settings.login");
+        broadcastEnb = Config.getBoolean("settings.broadcast");
+        broadcastMsg = Config.getString("settings.broadcastmessage");
+        playerEnb = Config.getBoolean("settings.player");
+        playerMsg = Config.getString("settings.playermessage");
         frequency = Config.getInteger("settings.frequency");
 
 
         // Messages - Registering channels
-        if (getBungee_broadcast()){
+        if (getBungeeBroadcast()){
             this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
             this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new Messages());
         }
@@ -78,7 +78,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
             getServer().getPluginManager().disablePlugin(this);
         }
 
-        if (use_vault){
+        if (useVault){
             if (Bukkit.getPluginManager().getPlugin("Vault") == null){
                 log.warning("Could not find Vault!! Plugin can not work without it! - AutoRankUp disabled.");
                 getServer().getPluginManager().disablePlugin(this);
@@ -88,7 +88,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         }
 
         // Check on player join
-        if (getPlayer_join())
+        if (getPlayerJoin())
             getServer().getPluginManager().registerEvents(new OnPlayer(), this);
 
         // Register commands
@@ -129,23 +129,23 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         return perms != null;
     }
 
-    public static boolean getBungee_broadcast(){ return bungee_broadcast; }
+    public static boolean getBungeeBroadcast(){ return bungeeBroadcast; }
 
-    public static boolean getPlayer_join(){ return player_join; }
+    public static boolean getPlayerJoin(){ return playerJoin; }
 
-    public static boolean getBroadcastEnabled(){ return broadcast_enb; }
+    public static boolean getBroadcastEnabled(){ return broadcastEnb; }
 
-    public static String getBroadcast_msg(){ return broadcast_msg; }
+    public static String getBroadcastMsg(){ return broadcastMsg; }
 
-    public static boolean getPlayer_enb(){ return player_enb; }
+    public static boolean getPlayerEnb(){ return playerEnb; }
 
-    public static String getPlayer_msg() { return player_msg; }
+    public static String getPlayerMsg() { return playerMsg; }
 
     public static int getFrequency() { return frequency; }
 
-    public static boolean getVault() { return use_vault; }
+    public static boolean getVault() { return useVault; }
 
     public static Permission getPerms() { return perms; }
 
-    public static String getPlaceholder() {return get_placeholders; }
+    public static String getPlaceholder() {return get_Placeholder; }
 }
