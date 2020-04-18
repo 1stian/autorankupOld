@@ -42,6 +42,10 @@ public class CanRankUp {
         String playerGroup = null;
         if (!getVault()){
             String groupPlaceholder = getPlaceholder();
+            if (groupPlaceholder == null){
+                log.info("[AutoRankUp] - No placeholder is specified.. Can't do anything. Using vault?");
+                return;
+            }
             playerGroup = PlaceholderAPI.setPlaceholders(player, groupPlaceholder);
         }else{
             playerGroup = getPerms().getPrimaryGroup(player);
@@ -67,7 +71,7 @@ public class CanRankUp {
             String rawCommand = Config.getString("ranks."+playerGroup+".command");
 
             if (rawCommand == null){
-                log.log(Level.INFO, "Command section is empty for: {0}", playerGroup);
+                log.log(Level.INFO, "[AutoRankUp] - Command section is empty for: {0}", playerGroup);
                 return;
             }
 
