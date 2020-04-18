@@ -33,7 +33,7 @@ public class Check implements CommandExecutor {
      * @return A string with total time, active time and afk time
      */
     private String checkPlayer(Player player){
-        String plan = "No data";
+        String plan;
         String total = "%plan_player_time_total%";
         String active = "%plan_player_time_active%";
         String afk = "%plan_player_time_afk%";

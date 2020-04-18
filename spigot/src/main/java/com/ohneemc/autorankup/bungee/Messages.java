@@ -64,34 +64,5 @@ public class Messages implements PluginMessageListener {
                 cancel();
             }
         }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);
-        /*
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("Forward");
-        out.writeUTF("ALL");
-        out.writeUTF(CHANNEL);
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                ByteArrayOutputStream msgbytes = new ByteArrayOutputStream();
-                DataOutputStream msgout = new DataOutputStream(msgbytes);
-                try{
-                    msgout.writeUTF(msg);
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-                out.writeShort(msgbytes.toByteArray().length);
-                out.write(msgbytes.toByteArray());
-                Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-                Player p = Iterables.getFirst(players, null);
-                if (p == null){
-                    return;
-                }
-                p.sendPluginMessage(getAutoRankUpSpigot(), "BungeeCord", out.toByteArray());
-                cancel();
-            }
-        }.runTaskTimer(getAutoRankUpSpigot(), 40L, 100L);
-
-         */
     }
 }

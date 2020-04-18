@@ -23,6 +23,11 @@ public class CanRankUp {
     private static HashMap<String, String> rankTime = new HashMap<>();
     private static HashMap<String, String> rankTo = new HashMap<>();
 
+    // Const
+    private static String playerTag = "{player}";
+    private static String groupTag = "{group}";
+    private static String groupToTag = "{rank_to}";
+
     enum PlanType{
         TOTAL, ACTIVE, AFK
     }
@@ -55,7 +60,6 @@ public class CanRankUp {
                 }else{
                     log.warning("[AutoRankUp] - Something wrong happened while ranking "
                             + player.getName() + " up with vault..");
-                    return;
                 }
                 return;
             }
@@ -63,12 +67,12 @@ public class CanRankUp {
             String rawCommand = Config.getString("ranks."+playerGroup+".command");
 
             if (rawCommand == null){
-                log.log(Level.INFO, "[AutoRankUp] - Command section is empty for: " + playerGroup);
+                log.log(Level.INFO, "Command section is empty for: {0}", playerGroup);
                 return;
             }
 
-            String replacePlayer = rawCommand.replace("{player}", player.getName());
-            String command = replacePlayer.replace("{group}", toRank);
+            String replacePlayer = rawCommand.replace(playerTag, player.getName());
+            String command = replacePlayer.replace(groupTag, toRank);
 
             ConsoleCommandSender console = Bukkit.getConsoleSender();
             if (Bukkit.dispatchCommand(console, command)){
@@ -101,22 +105,22 @@ public class CanRankUp {
      * @param toRank What rank the player ranked up to
      */
     private static void sendMessages(Player player, String toRank){
-        if (getPlayerEnb()){
-            String rPlayer = AutoRankUpSpigot.getPlayerMsg().replace("{player}", player.getName());
-            String rGroup = rPlayer.replace("{rank_to}", toRank);
+        if (getPlayer_enb()){
+            String rPlayer = AutoRankUpSpigot.getPlayer_msg().replace(playerTag, player.getName());
+            String rGroup = rPlayer.replace(groupToTag, toRank);
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', rGroup));
         }
-        if (getBroadcastEnabled() && !getBungeeBroadcast()){
-            String rPlayer = AutoRankUpSpigot.getBroadcastMsg().replace("{player}", player.getName());
-            String rGroup = rPlayer.replace("{rank_to}", toRank);
+        if (getBroadcastEnabled() && !getBungee_broadcast()){
+            String rPlayer = AutoRankUpSpigot.getBroadcast_msg().replace(playerTag, player.getName());
+            String rGroup = rPlayer.replace(groupToTag, toRank);
 
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', rGroup));
         }
 
-        if (getBungeeBroadcast()){
-            String rPlayer = AutoRankUpSpigot.getBroadcastMsg().replace("{player}", player.getName());
-            String rGroup = rPlayer.replace("{rank_to}", toRank);
+        if (getBungee_broadcast()){
+            String rPlayer = AutoRankUpSpigot.getBroadcast_msg().replace(playerTag, player.getName());
+            String rGroup = rPlayer.replace(groupToTag, toRank);
 
             Messages.sendBroadcast(rGroup);
         }
@@ -153,14 +157,14 @@ public class CanRankUp {
         boolean canRankUp = false;
 
         // Active play time the player has.
-        int pDay = Integer.valueOf(splitActive[0]);
-        int pHour = Integer.valueOf(splitActive[1]);
-        int pMin = Integer.valueOf(splitActive[2]);
+        int pDay = Integer.parseInt(splitActive[0]);
+        int pHour = Integer.parseInt(splitActive[1]);
+        int pMin = Integer.parseInt(splitActive[2]);
 
         // Values needed to rank up!
-        int toDay = Integer.valueOf(splitTo[0]);
-        int toHour = Integer.valueOf(splitTo[1]);
-        int toMin = Integer.valueOf(splitTo[2]);
+        int toDay = Integer.parseInt(splitTo[0]);
+        int toHour = Integer.parseInt(splitTo[1]);
+        int toMin = Integer.parseInt(splitTo[2]);
 
         // If day has passed -> rank up
         if (pDay > toDay){
@@ -196,7 +200,7 @@ public class CanRankUp {
      * @return A string with the data you requested
      */
     private static String getType(Player player, PlanType planType){
-        String plan = "No data";
+        String plan;
         switch (planType) {
             case ACTIVE:
                 plan = PlaceholderAPI.setPlaceholders(player, "%plan_player_time_active%");
