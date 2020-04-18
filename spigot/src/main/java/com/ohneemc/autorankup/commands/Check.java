@@ -12,9 +12,9 @@ public class Check implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("check")){
+        if (command.getName().equalsIgnoreCase("timecheck")){
             if (args.length < 1){
-                sender.sendMessage("You must give me a name to check... /check <name>");
+                sender.sendMessage("You must give me a name to check... /timecheck <name>");
             }else{
                 Player target = Bukkit.getPlayer(args[0]);
                 if (target == null){
