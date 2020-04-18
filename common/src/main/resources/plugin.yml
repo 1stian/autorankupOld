@@ -9,10 +9,10 @@ authors: [1stian]
 description: A plugin that will automatically rank up players based on active play time.
 website: https://ohneemc.com
 commands:
-  check:
+  timecheck:
     description: Gives you total, active and afk time of a player
-    usage: /check <name>
-    permission-message: You do not have access to /check
+    usage: /timecheck <name>
+    permission-message: You do not have access to /timecheck
     permission: autorankup.check
   autorankup:
     description: Admin command, shows version and sub command for relaod config.
