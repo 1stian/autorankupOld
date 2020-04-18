@@ -84,6 +84,7 @@ public class CanRankUp {
             if (Bukkit.dispatchCommand(console, command)){
                 if (getLogToConsole())
                     log.log(Level.INFO, "[AutoRankUp] - Command successful");
+                sendMessages(player, toRank);
             }else{
                 log.log(Level.SEVERE, "[AutoRankUp] - Command failed");
             }
