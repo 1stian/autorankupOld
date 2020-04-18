@@ -8,14 +8,12 @@ jdk: oraclejdk8
 before_install:
  - chmod +x gradlew
 
+addons:
+  sonarcloud:
+    organization: "1stian"
+    token:
+      secure: "N9NLU64pxiMzT4DunYCd+VFdjL9/HxDkM5Pc6g6I/ycw+CDvWtedfhjaV1FUI1Eym/iXCvCsmtdF9dtd/WV9bqWxU04soF14cr/FoybsilAUVmyWpuCKxEYUrHHOJ3edidWxFECJPavIZ6CIxarIR4CPRoQ17e4EX16J8/CJRVxkCi+tswEsioGfkd+EFAiL1psPmPKSE1//Cppv2NPnCyq63FgLtExnNdC89WjLsJMwkTM7njTcjnh58nNzUwBC/b1cT4zgIhZS5c6iRlld9CniX9SzMQs+74oixOUmZ7+Q5Ap10l6BbWkKUuShjnmzl+SgO/zcXfLfBor/Pq38gldUCSW+asBcLjEUKbvMjxWIIBrqgGn1HCgMYj0M0Ojly00B2Msaq8QlA1eyB0uxQWDyOaT1jMe/k9HT8Q8CRdoPc0hf4hcqCzywhiblEbGaL4UN3MVSjll6GoWkVDY1tEtE18xaClpMJYRS9CbN4+CmdEeP2rfqu3prBfvEA9XH7ImT9O3WxstqGpd8mlqpJHs1drKJDQw2rZsIL9TwgYtHtGfyTmp/AOxb99ICvnWr4ZF5n5a2rGr4wGmIQj8TM7QMEGfm2+Wf/ERl2+0IyIF64B8LEGxFQRMJ0IOIsPGEmIl+hyB0OI8EAH4kahHb3JaFPNmyXkzW1Rom/bEr2AE=" # encrypted value of your token
+
 script:
   - ./gradlew build
-
-addons:
- sonarcloud:
-  organization: "1stian"
-  token:
-   secure: "N9NLU64pxiMzT4DunYCd+VFdjL9/HxDkM5Pc6g6I/ycw+CDvWtedfhjaV1FUI1Eym/iXCvCsmtdF9dtd/WV9bqWxU04soF14cr/FoybsilAUVmyWpuCKxEYUrHHOJ3edidWxFECJPavIZ6CIxarIR4CPRoQ17e4EX16J8/CJRVxkCi+tswEsioGfkd+EFAiL1psPmPKSE1//Cppv2NPnCyq63FgLtExnNdC89WjLsJMwkTM7njTcjnh58nNzUwBC/b1cT4zgIhZS5c6iRlld9CniX9SzMQs+74oixOUmZ7+Q5Ap10l6BbWkKUuShjnmzl+SgO/zcXfLfBor/Pq38gldUCSW+asBcLjEUKbvMjxWIIBrqgGn1HCgMYj0M0Ojly00B2Msaq8QlA1eyB0uxQWDyOaT1jMe/k9HT8Q8CRdoPc0hf4hcqCzywhiblEbGaL4UN3MVSjll6GoWkVDY1tEtE18xaClpMJYRS9CbN4+CmdEeP2rfqu3prBfvEA9XH7ImT9O3WxstqGpd8mlqpJHs1drKJDQw2rZsIL9TwgYtHtGfyTmp/AOxb99ICvnWr4ZF5n5a2rGr4wGmIQj8TM7QMEGfm2+Wf/ERl2+0IyIF64B8LEGxFQRMJ0IOIsPGEmIl+hyB0OI8EAH4kahHb3JaFPNmyXkzW1Rom/bEr2AE=" # encrypted value of your token
-
-script:
- - ./gradlew sonarqube
+  - ./gradlew sonarqube
