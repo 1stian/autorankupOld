@@ -25,6 +25,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     public static final String SUB_CHANNEL = "rankup";
 
     // Private
+    private static boolean logToConsole;
     private static boolean useVault;
     private static String getPlaceholder;
     private static boolean bungeeBroadcast;
@@ -49,6 +50,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         Metrics metrics = new Metrics(this, 7197);
 
         // Filling values
+        logToConsole = Config.getBoolean("settings.console");
         useVault = Config.getBoolean("vault.enabled");
         getPlaceholder = Config.getString("placeholder.group");
         bungeeBroadcast = Config.getBoolean("bungee.broadcast");
@@ -148,4 +150,6 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     public static Permission getPerms() { return perms; }
 
     public static String getPlaceholder() {return getPlaceholder; }
+
+    public static boolean getLogToConsole() {return logToConsole; }
 }
