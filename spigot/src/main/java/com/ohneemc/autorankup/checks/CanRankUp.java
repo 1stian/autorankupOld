@@ -222,7 +222,7 @@ public class CanRankUp {
     private static void grabRankUps(){
         ConfigurationSection section = Config.getSection("ranks");
         if (section == null){
-            Bukkit.getLogger().log(Level.SEVERE, "Could't not grab ranks from config.. Please check your config.");
+            Bukkit.getLogger().log(Level.SEVERE, "Could not grab ranks from config.. Please check your config.");
             return;
         }
 
