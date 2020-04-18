@@ -36,7 +36,7 @@ public class PluginMsg implements Listener {
                 String msg = msgin.readUTF();
                 autoRankUpBungeeCord.getLogger().log(Level.INFO, "Received msg: {0}", msg);
             } catch (IOException e) {
-                e.printStackTrace();
+                autoRankUpBungeeCord.getLogger().log(Level.SEVERE, e.toString());
             }
         }
     }

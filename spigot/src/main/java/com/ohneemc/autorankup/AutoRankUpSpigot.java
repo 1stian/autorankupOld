@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     //Public
-    public static boolean debug = false;
+    public final static boolean debug = false;
     public static final Logger log = Logger.getLogger("Minecraft");
     public static final String CHANNEL = "Autorankup:rank";
     public static final String SUB_CHANNEL = "rankup";

@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.*;
 import java.util.Collection;
+import java.util.logging.Level;
 
 import static com.ohneemc.autorankup.AutoRankUpSpigot.*;
 
@@ -36,7 +37,7 @@ public class Messages implements PluginMessageListener {
                 String msg = msgin.readUTF();
                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msg));
             } catch (IOException e) {
-                e.printStackTrace();
+                getAutoRankUpSpigot().getLogger().log(Level.SEVERE, e.toString());
             }
         }
     }

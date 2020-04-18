@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class Config {
 
@@ -13,7 +14,8 @@ public class Config {
      * @param e Exception generated from reading configuration
      */
     private static void error(Exception e){
-        if (AutoRankUpSpigot.debug) e.printStackTrace();
+        if (AutoRankUpSpigot.debug)
+            AutoRankUpSpigot.log.log(Level.SEVERE, e.toString());
     }
 
     /**
