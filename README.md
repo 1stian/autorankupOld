@@ -41,6 +41,8 @@ ___
 | /timecheck playerName | autorankup.check | Gives you how long the player has played. total/active/afk |
 | /autorankup | autorankup.admin | Prints out plugin version |
 | /autorankup reload | autorankup.admin | Reloads the config from disk |
+
+
 There are no permission for this plugin to work. Just configure the ranks
 and so on in the config.yml
 ___
