@@ -19,14 +19,14 @@ import java.util.logging.Logger;
 
 public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     //Public
-    public final static boolean debug = false;
+    public static final boolean DEBUG = false;
     public static final Logger log = Logger.getLogger("Minecraft");
     public static final String CHANNEL = "Autorankup:rank";
     public static final String SUB_CHANNEL = "rankup";
 
     // Private
     private static boolean useVault;
-    private static String get_Placeholder;
+    private static String getPlaceholder;
     private static boolean bungeeBroadcast;
     private static boolean playerJoin;
     private static boolean broadcastEnb;
@@ -50,7 +50,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
         // Filling values
         useVault = Config.getBoolean("vault.enabled");
-        get_Placeholder = Config.getString("placeholder.group");
+        getPlaceholder = Config.getString("placeholder.group");
         bungeeBroadcast = Config.getBoolean("bungee.broadcast");
         playerJoin = Config.getBoolean("settings.login");
         broadcastEnb = Config.getBoolean("settings.broadcast");
@@ -147,5 +147,5 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
     public static Permission getPerms() { return perms; }
 
-    public static String getPlaceholder() {return get_Placeholder; }
+    public static String getPlaceholder() {return getPlaceholder; }
 }

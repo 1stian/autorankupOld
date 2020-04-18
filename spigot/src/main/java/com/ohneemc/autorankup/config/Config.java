@@ -14,8 +14,8 @@ public class Config {
      * @param e Exception generated from reading configuration
      */
     private static void error(Exception e){
-        if (AutoRankUpSpigot.debug)
-            AutoRankUpSpigot.log.log(Level.SEVERE, e.toString());
+        if (AutoRankUpSpigot.DEBUG)
+            AutoRankUpSpigot.log.log(Level.SEVERE, String.valueOf(e));
     }
 
     /**
