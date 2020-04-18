@@ -16,7 +16,7 @@ public class Config {
      */
     private static void error(Exception e){
         if (AutoRankUpSpigot.DEBUG)
-            AutoRankUpSpigot.log.log(Level.SEVERE, MessageFormat.format("Something went wrong.. {0}", e));
+            AutoRankUpSpigot.log.log(Level.SEVERE, "Something went wrong: {0} ", e);
     }
 
     /**
