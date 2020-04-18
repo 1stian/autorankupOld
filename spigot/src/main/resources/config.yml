@@ -3,7 +3,7 @@
 # https://ohneemc.com
 #
 settings:
-  # Log rank ups to console?
+  # Log rank ups to console? It will still print if something is wrong.
   console: true
   # How frequent do you want it to check for rank ups. In minutes.
   frequency: 5
