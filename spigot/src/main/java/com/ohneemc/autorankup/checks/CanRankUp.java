@@ -3,6 +3,7 @@ package com.ohneemc.autorankup.checks;
 import com.ohneemc.autorankup.AutoRankUpSpigot;
 import com.ohneemc.autorankup.bungee.Messages;
 import com.ohneemc.autorankup.config.Config;
+import com.ohneemc.autorankup.helpers.Enums;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,12 +28,6 @@ public class CanRankUp {
     private static String playerTag = "{player}";
     private static String groupTag = "{group}";
     private static String groupToTag = "{rank_to}";
-
-    enum PlanType{
-        TOTAL, ACTIVE, AFK
-    }
-    PlanType planType;
-
     /***
      *
      * @param player The player to rank up
@@ -153,7 +148,7 @@ public class CanRankUp {
             return false;
         }
         // Getting how long the player has been active for
-        String activeTime = getType(player, PlanType.ACTIVE);
+        String activeTime = getType(player, Enums.PlanType.ACTIVE);
         // Getting the time required for rank up
         String timeToRank = rankTime.get(group);
 
@@ -214,7 +209,7 @@ public class CanRankUp {
      * @param planType What type of data you want
      * @return A string with the data you requested
      */
-    private static String getType(Player player, PlanType planType){
+    private static String getType(Player player, Enums.PlanType planType){
         String plan;
         switch (planType) {
             case ACTIVE:
