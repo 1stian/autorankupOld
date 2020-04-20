@@ -85,6 +85,12 @@ public class CanRankUp {
                 if (getLogToConsole())
                     log.log(Level.INFO, "[AutoRankUp] - Command successful");
 
+                // Checks if the player is eligible for the next one as well.
+                // This is here so if a player has more time then more than one rank.
+                if (rankChecker(player, toRank)){
+                    rankUp(player);
+                    return;
+                }
                 sendMessages(player, toRank);
             }else{
                 log.log(Level.SEVERE, "[AutoRankUp] - Command failed");
