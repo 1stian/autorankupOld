@@ -19,7 +19,7 @@ public class Autorankup implements CommandExecutor {
                         + ChatColor.YELLOW + AutoRankUpSpigot.getAutoRankUpSpigot().
                         getDescription().getVersion() + ChatColor.AQUA + ")");
                 sender.sendMessage(ChatColor.AQUA + "[" + ChatColor.WHITE + autoRankTag + ChatColor.AQUA
-                        + "]" + ChatColor.GREEN + " For config reload do" + ChatColor.AQUA +"/Autorankup reload");
+                        + "]" + ChatColor.GREEN + " For config reload do " + ChatColor.AQUA +"/Autorankup reload");
                 return true;
             }else if(args[0].equalsIgnoreCase("reload")){
                 if (Config.reloadConfig()){
