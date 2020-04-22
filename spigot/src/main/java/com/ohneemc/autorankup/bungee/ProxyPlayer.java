@@ -19,7 +19,7 @@ public class ProxyPlayer implements PluginMessageListener {
 
 public static List<String> ProxiedPlayer = new ArrayList<>();
 
-    private static void askProxyPlayers(){
+    public static void askProxyPlayers(){
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("PlayerList");
         out.writeUTF("ALL");
