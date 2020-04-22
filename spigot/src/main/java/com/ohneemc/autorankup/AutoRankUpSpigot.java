@@ -63,7 +63,7 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
 
         // Messages - Registering channels
-        if (getBungeeBroadcast()){
+        if (getBungeeBroadcast()) {
             this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
             this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new Messages());
         }
@@ -80,8 +80,8 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
             getServer().getPluginManager().disablePlugin(this);
         }
 
-        if (useVault){
-            if (Bukkit.getPluginManager().getPlugin("Vault") == null){
+        if (useVault) {
+            if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
                 log.warning("Could not find Vault!! Plugin can not work without it! - AutoRankUp disabled.");
                 getServer().getPluginManager().disablePlugin(this);
             }
@@ -111,19 +111,21 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
      */
     private void task() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-            if (players.isEmpty()){
-                return;
-            }
-            log.info("[AutoRankUp] - checking for eligible players.");
-                    for (Player player : Bukkit.getOnlinePlayers()){
+                    Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+                    if (players.isEmpty()) {
+                        return;
+                    }
+                    log.info("[AutoRankUp] - checking for eligible players.");
+                    for (Player player : Bukkit.getOnlinePlayers()) {
                         CanRankUp.rankUp(player);
                     }
                 }, 120L, (long) getFrequency() * 1200L
         );
     }
 
-    public static AutoRankUpSpigot getAutoRankUpSpigot(){ return autoRankUpSpigot; }
+    public static AutoRankUpSpigot getAutoRankUpSpigot() {
+        return autoRankUpSpigot;
+    }
 
     private boolean setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
@@ -131,25 +133,47 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         return perms != null;
     }
 
-    public static boolean getBungeeBroadcast(){ return bungeeBroadcast; }
+    public static boolean getBungeeBroadcast() {
+        return bungeeBroadcast;
+    }
 
-    public static boolean getPlayerJoin(){ return playerJoin; }
+    public static boolean getPlayerJoin() {
+        return playerJoin;
+    }
 
-    public static boolean getBroadcastEnabled(){ return broadcastEnb; }
+    public static boolean getBroadcastEnabled() {
+        return broadcastEnb;
+    }
 
-    public static String getBroadcastMsg(){ return broadcastMsg; }
+    public static String getBroadcastMsg() {
+        return broadcastMsg;
+    }
 
-    public static boolean getPlayerEnb(){ return playerEnb; }
+    public static boolean getPlayerEnb() {
+        return playerEnb;
+    }
 
-    public static String getPlayerMsg() { return playerMsg; }
+    public static String getPlayerMsg() {
+        return playerMsg;
+    }
 
-    public static int getFrequency() { return frequency; }
+    public static int getFrequency() {
+        return frequency;
+    }
 
-    public static boolean getVault() { return useVault; }
+    public static boolean getVault() {
+        return useVault;
+    }
 
-    public static Permission getPerms() { return perms; }
+    public static Permission getPerms() {
+        return perms;
+    }
 
-    public static String getPlaceholder() {return getPlaceholder; }
+    public static String getPlaceholder() {
+        return getPlaceholder;
+    }
 
-    public static boolean getLogToConsole() {return logToConsole; }
+    public static boolean getLogToConsole() {
+        return logToConsole;
+    }
 }
