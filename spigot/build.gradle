@@ -14,7 +14,7 @@ dependencies {
     compile "org.bstats:bstats-bukkit:$bstatsVersion"
     compileOnly "me.clip:placeholderapi:$placeholderapiVersion"
     compileOnly "com.github.MilkBowl:VaultAPI:$vaultVersion"
-    compileOnly "PermissionsEx-1.23.4"
+    implementation name: "PermissionsEx-1.23.4"
 }
 
 processResources {
