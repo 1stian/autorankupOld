@@ -32,7 +32,7 @@ vault:
 ranks:
   # The default rank of the server.
   default:
-    # The time in days, hours, minutes and seconds. Don't change the format, only the numbers!
+    # The time in days, hours and minutes . Don't change the format, only the numbers!
     time: 0d 3h 0m
     # The rank you want to put them in.
     to: regular
