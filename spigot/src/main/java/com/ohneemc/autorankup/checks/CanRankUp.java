@@ -157,8 +157,8 @@ public class CanRankUp {
         }
 
         // Strings with only numbers
-        String strippedActive = activeTime.replaceAll("([a-z])", "");
-        String strippedTo = timeToRank.replaceAll("([a-z])", "");
+        String strippedActive = activeTime.toLowerCase().replaceAll("([a-z])", "");
+        String strippedTo = timeToRank.toLowerCase().replaceAll("([a-z])", "");
 
         // Splitting the numbers
         String[] splitActive = strippedActive.split(" ");
@@ -167,14 +167,39 @@ public class CanRankUp {
         boolean canRankUp = false;
 
         // Active play time the player has.
-        int pDay = Integer.parseInt(splitActive[0]);
-        int pHour = Integer.parseInt(splitActive[1]);
-        int pMin = Integer.parseInt(splitActive[2]);
+        int pDay;
+        int pHour;
+        int pMin;
+        // Trying to parse ints, if not, it will be 0.
+        try {
+            pDay = Integer.parseInt(splitActive[0]);
+        }catch (Exception ex){
+            pDay = 0;
+        }
+        try {
+            pHour = Integer.parseInt(splitActive[0]);
+        }catch (Exception ex){
+            pHour = 0;
+        }
+        try {
+            pMin = Integer.parseInt(splitActive[0]);
+        }catch (Exception ex){
+            pMin = 0;
+        }
+
 
         // Values needed to rank up!
-        int toDay = Integer.parseInt(splitTo[0]);
-        int toHour = Integer.parseInt(splitTo[1]);
-        int toMin = Integer.parseInt(splitTo[2]);
+        int toDay;
+        int toHour;
+        int toMin;
+        try{
+            toDay = Integer.parseInt(splitTo[0]);
+            toHour = Integer.parseInt(splitTo[1]);
+            toMin = Integer.parseInt(splitTo[2]);
+        }catch (Exception ex){
+            log.log(Level.WARNING, "[AutoRankUp] Could not parse time from config. Is the formatting correct? 0d 0h 0m 0s");
+            return false;
+        }
 
         // If day has passed -> rank up
         if (pDay > toDay){
