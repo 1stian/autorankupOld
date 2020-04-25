@@ -33,14 +33,14 @@ ranks:
   # The default rank of the server.
   default:
     # The time in days, hours, minutes and seconds. Don't change the format, only the numbers!
-    time: 0d 3h 0m 0s
+    time: 0d 3h 0m
     # The rank you want to put them in.
     to: regular
     # Command to send to the console on rank up. Example for LuckPerms: lp user {player} parent set {group}
     # Make sure you put {player} and {group} where they need to be in your command.
     command: ""
   regular:
-    time: 1d 4h 0m 0s
+    time: 1d 4h 0m
     to: trusted
     command: ""
 
