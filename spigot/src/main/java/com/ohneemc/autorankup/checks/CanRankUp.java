@@ -170,19 +170,36 @@ public class CanRankUp {
         int pDay;
         int pHour;
         int pMin;
+
         // Trying to parse ints, if not, it will be 0.
         try {
-            pDay = Integer.parseInt(splitActive[0]);
+            if (activeTime.contains("d")){
+                pDay = Integer.parseInt(splitActive[0]);
+            }else{
+                pDay = 0;
+            }
         }catch (Exception ex){
             pDay = 0;
         }
         try {
-            pHour = Integer.parseInt(splitActive[0]);
+            if (activeTime.contains("h") && splitActive.length > 2){
+                pHour = Integer.parseInt(splitActive[1]);
+            }else if (activeTime.contains("h")){
+                pHour = Integer.parseInt(splitActive[0]);
+            }else{
+                pHour = 0;
+            }
         }catch (Exception ex){
             pHour = 0;
         }
         try {
-            pMin = Integer.parseInt(splitActive[0]);
+            if (activeTime.contains("m") && splitActive.length > 3) {
+                pMin = Integer.parseInt(splitActive[2]);
+            }else if(activeTime.contains("m")){
+                pMin = Integer.parseInt(splitActive[0]);
+            }else{
+                pMin = 0;
+            }
         }catch (Exception ex){
             pMin = 0;
         }
