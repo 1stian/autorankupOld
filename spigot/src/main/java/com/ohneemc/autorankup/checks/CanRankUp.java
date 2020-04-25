@@ -10,8 +10,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import ru.tehkode.permissions.PermissionUser;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +39,7 @@ public class CanRankUp {
     public static void rankUp(Player player){
         // Getting current group of player.
         String playerGroup = null;
-        if (!getVault()){
+        if (!getVault() && !getPex()){
             String groupPlaceholder = getPlaceholder();
             if (groupPlaceholder == null){
                 log.info("[AutoRankUp] - No placeholder is specified.. Can't do anything. Using vault?");
@@ -43,7 +47,13 @@ public class CanRankUp {
             }
             playerGroup = PlaceholderAPI.setPlaceholders(player, groupPlaceholder);
         }else{
-            playerGroup = getPerms().getPrimaryGroup(player);
+            if (!getPex())
+                playerGroup = getPerms().getPrimaryGroup(player);
+        }
+
+        if (getPex()) {
+            PermissionUser user = PermissionsEx.getUser(player);
+            playerGroup = PlaceholderAPI.setPlaceholders(player, "%vault_rank%");
         }
 
         // Checking first if true, proceed with rank up.
@@ -53,17 +63,33 @@ public class CanRankUp {
             // What group the player should rank up to
             String toRank = rankTo.get(playerGroup);
 
-            if (getVault()){
+            if (getVault() && !getPex()){
                 if (rankUpVault(player, toRank)){
                     sendMessages(player,toRank);
                     if (getLogToConsole())
-                        log.log(Level.INFO, "[AutoRankUp] - Rankup successful");
+                        log.log(Level.INFO, "[AutoRankUp] - Rankup successful - VAULT");
                 }else{
                     log.warning("[AutoRankUp] - Something wrong happened while ranking "
                             + player.getName() + " up with vault..");
                 }
                 return;
             }
+
+            if (getPex()){
+                PermissionUser user = PermissionsEx.getUser(player);
+                List<String> pexList = new ArrayList<>();
+                pexList.add(toRank);
+                if (rankUpPex(user, pexList)){
+                    sendMessages(player,toRank);
+                    if (getLogToConsole())
+                        log.log(Level.INFO, "[AutoRankUp] - Rankup successful - PEX");
+                }else{
+                    log.warning("[AutoRankUp] - Something wrong happened while ranking "
+                            + player.getName() + " up with PEX..");
+                }
+                return;
+            }
+
             // Getting command to execute on rank up
             String rawCommand = Config.getString("ranks."+playerGroup+".command");
 
@@ -109,6 +135,15 @@ public class CanRankUp {
         }
     }
 
+    private static boolean rankUpPex(PermissionUser player, List<String> newGroup){
+        try {
+            //player.addGroup(newGroup);
+            player.setParentsIdentifier(newGroup, null);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
     /***
      *
      * @param player The player who ranked up

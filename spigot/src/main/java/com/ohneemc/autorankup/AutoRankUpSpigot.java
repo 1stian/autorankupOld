@@ -37,6 +37,9 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
     private static int frequency;
     private static Permission perms = null;
 
+    // Hook
+    private static boolean pex = false;
+
     private static AutoRankUpSpigot autoRankUpSpigot;
 
     @Override
@@ -60,7 +63,6 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
         playerEnb = Config.getBoolean("settings.player");
         playerMsg = Config.getString("settings.playermessage");
         frequency = Config.getInteger("settings.frequency");
-
 
         // Messages - Registering channels
         if (getBungeeBroadcast()) {
@@ -87,6 +89,11 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
             }
             setupPermissions();
             log.info("[AutoRankUp] - Using Vault system.");
+        }
+
+        // Checking if PEX is available on the server. If true, using PEX!
+        if (Bukkit.getPluginManager().getPlugin("PermissionsEx") != null){
+            pex = true;
         }
 
         // Check on player join
@@ -175,5 +182,9 @@ public final class AutoRankUpSpigot extends JavaPlugin implements Listener {
 
     public static boolean getLogToConsole() {
         return logToConsole;
+    }
+
+    public static boolean getPex() {
+        return pex;
     }
 }
