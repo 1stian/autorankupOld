@@ -214,7 +214,7 @@ public class CanRankUp {
             toHour = Integer.parseInt(splitTo[1]);
             toMin = Integer.parseInt(splitTo[2]);
         }catch (Exception ex){
-            log.log(Level.WARNING, "[AutoRankUp] Could not parse time from config. Is the formatting correct? 0d 0h 0m 0s");
+            log.log(Level.WARNING, "[AutoRankUp] Could not parse time from config. Is the formatting correct? 0d 0h 0m");
             return false;
         }
 
