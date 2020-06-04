@@ -3,7 +3,6 @@ package com.ohneemc.autorankup.config;
 import com.ohneemc.autorankup.AutoRankUpSpigot;
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
